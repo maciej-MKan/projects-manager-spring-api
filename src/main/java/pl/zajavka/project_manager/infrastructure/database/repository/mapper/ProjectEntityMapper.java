@@ -10,4 +10,6 @@ import pl.zajavka.project_manager.infrastructure.database.entity.ProjectEntity;
 public interface ProjectEntityMapper {
 
     Project mapFromEntity(ProjectEntity entity);
+
+    ProjectEntity mapToEntity(Project project);
 }

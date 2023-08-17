@@ -5,15 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDTO {
+public class ProjectDetailsDTO {
 
     private String title;
-//    private String description;
+    private String description;
     private Integer startDate;
     private Integer endDate;
     private UserDTO author;
+    private List<UserDTO> users;
+//    private List<CommentDTO> comments;
 }

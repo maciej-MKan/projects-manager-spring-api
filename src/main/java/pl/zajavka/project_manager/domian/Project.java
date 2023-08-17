@@ -11,7 +11,7 @@ import java.util.List;
 @ToString(of = {"title", "author"})
 public class Project {
 
-    String projectId;
+    Integer projectId;
     String title;
     String description;
     Integer startDate;

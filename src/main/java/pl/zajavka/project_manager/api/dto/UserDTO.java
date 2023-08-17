@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDTO {
+public class UserDTO {
 
-    private String title;
-//    private String description;
-    private Integer startDate;
-    private Integer endDate;
-    private UserDTO author;
+    private String name;
+    private String surname;
 }
