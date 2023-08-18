@@ -19,31 +19,46 @@ public class ProjectsService {
     private final ProjectsDAO projectsDAO;
 
     @Transactional
-    public List<Project> findAllProjects(){
+    public List<Project> findAllProjects() {
         List<Project> allProjects = projectsDAO.findAllProjects();
         log.info("Found and return [{}] projects", allProjects.size());
         return allProjects;
     }
 
     @Transactional
-    public List<Project> findProjectsByUser(User user){
+    public List<Project> findProjectsByUser(Integer userId) {
+        User user = User.builder()
+                .userId(userId)
+                .build();
         return Optional.ofNullable(projectsDAO.findProjectsByUser(user))
                 .orElseThrow();
     }
 
     @Transactional
-    public Project saveProject(Project project){
+    public Project saveProject(Project project) {
         return projectsDAO.saveProject(project);
     }
 
-    public Project updateProject(Project project){
-        if (project.getProjectId() == null){
+    @Transactional
+    public Project updateProject(Project project) {
+        if (project.getProjectId() == null) {
             throw new RuntimeException();
         }
         return projectsDAO.saveProject(project);
     }
 
-    public void deleteProject(Project project){
+    @Transactional
+    public void deleteProject(Integer projectId) {
+        Project project = Project.builder()
+                .projectId(projectId)
+                .build();
         projectsDAO.deleteProject(project);
+    }
+
+    public Project findProjectDetails(Integer projectId) {
+        Project project = Project.builder()
+                .projectId(projectId)
+                .build();
+        return projectsDAO.findProjectDetails(project);
     }
 }

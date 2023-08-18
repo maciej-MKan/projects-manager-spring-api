@@ -49,4 +49,11 @@ public class ProjectsRepository implements ProjectsDAO {
         projectJpaRepository.deleteById(project.getProjectId());
 
     }
+
+    @Override
+    public Project findProjectDetails(Project project) {
+        return projectEntityMapper.mapFromEntity(
+                projectJpaRepository.findById(project.getProjectId()).orElseThrow()
+        );
+    }
 }

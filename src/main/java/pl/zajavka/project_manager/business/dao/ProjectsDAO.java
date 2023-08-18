@@ -14,4 +14,6 @@ public interface ProjectsDAO {
     Project saveProject(Project project);
 
     void deleteProject(Project project);
+
+    Project findProjectDetails(Project project);
 }

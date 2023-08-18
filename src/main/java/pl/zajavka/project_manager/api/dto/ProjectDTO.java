@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProjectDTO {
 
-    private String title;
+    private String name;
 //    private String description;
     private Integer startDate;
     private Integer endDate;

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectDetailsDTO {
 
-    private String title;
+    private String name;
     private String description;
     private Integer startDate;
     private Integer endDate;

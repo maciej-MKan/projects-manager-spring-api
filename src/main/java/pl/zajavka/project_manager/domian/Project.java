@@ -8,11 +8,11 @@ import java.util.List;
 @Value
 @Builder
 @EqualsAndHashCode(of = "projectId")
-@ToString(of = {"title", "author"})
+@ToString(of = {"name", "author"})
 public class Project {
 
     Integer projectId;
-    String title;
+    String name;
     String description;
     Integer startDate;
     Integer endDate;

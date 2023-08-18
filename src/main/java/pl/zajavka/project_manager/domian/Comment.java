@@ -13,4 +13,5 @@ public class Comment {
     String comment;
     Integer date;
     User author;
+    Project project;
 }
