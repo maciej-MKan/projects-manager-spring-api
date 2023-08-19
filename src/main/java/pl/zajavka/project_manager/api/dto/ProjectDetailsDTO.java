@@ -13,11 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 public class ProjectDetailsDTO {
 
+    private Integer projectId;
     private String name;
     private String description;
     private Integer startDate;
     private Integer endDate;
     private UserDTO author;
     private List<UserDTO> users;
-//    private List<CommentDTO> comments;
+    private List<CommentDTO> comments;
 }

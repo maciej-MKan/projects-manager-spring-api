@@ -6,7 +6,7 @@ import lombok.*;
 @Value
 @Builder
 @EqualsAndHashCode(of = "commentId")
-@ToString(of = {"date", "comment"})
+@ToString(of = {"commentId", "date", "comment"})
 public class Comment {
 
     Integer commentId;

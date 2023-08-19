@@ -1,6 +1,7 @@
 package pl.zajavka.project_manager.api.controller.rest;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import pl.zajavka.project_manager.api.dto.CommentDTO;
 import pl.zajavka.project_manager.api.dto.mapper.CommentDTOMapper;
@@ -9,6 +10,7 @@ import pl.zajavka.project_manager.domian.Comment;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(CommentController.API_COMMENTS)
@@ -22,14 +24,20 @@ public class CommentController {
 
     @GetMapping(value = COMMENTS_FOR_PROJECT)
     public List<CommentDTO> commentsForProject(@PathVariable Integer projectId) {
-        return commentService.findCommentsByProject(projectId).stream()
+        log.info("Handled projectId [{}]", projectId);
+        List<CommentDTO> commentDTOList = commentService.findCommentsByProject(projectId).stream()
                 .map(commentDTOMapper::map)
                 .toList();
+        log.info("List of comments to return [{}]", commentDTOList);
+        return commentDTOList;
     }
 
     @PostMapping(value = ADD_COMMENT)
     public CommentDTO addComment(@RequestBody CommentDTO commentDTO) {
+        log.info("Handled param [{}]", commentDTO);
         Comment comment = commentDTOMapper.map(commentDTO);
-        return commentDTOMapper.map(commentService.saveComment(comment));
+        CommentDTO returnCommentDTO = commentDTOMapper.map(commentService.saveComment(comment));
+        log.info("Comment to return [{}]", returnCommentDTO);
+        return returnCommentDTO;
     }
 }
