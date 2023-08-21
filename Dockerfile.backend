@@ -1,5 +1,5 @@
 # base img for java 17
-FROM openjdk:17-jre-slim
+FROM amazoncorretto:17-al2-native-jdk
 
 # work dir
 WORKDIR /app
