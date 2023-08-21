@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/login", "/users/add", "authenticate")
+                                .requestMatchers("/login", "/users/add", "/swagger-ui/**")
                                 .permitAll()
                                 .requestMatchers("/projects/all", "users/all", "users/delete")
                                 .hasAuthority("SuperUser")

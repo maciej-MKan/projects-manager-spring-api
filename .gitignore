@@ -1,7 +1,10 @@
 HELP.md
 .gradle
 build/*
-!build/libs/*.jar
+!build/libs/
+!build/libs/*.*
+!**/libs/*.jar
+!build/**/*.jar
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -52,7 +55,6 @@ out/
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
