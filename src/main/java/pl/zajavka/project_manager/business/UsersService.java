@@ -2,6 +2,7 @@ package pl.zajavka.project_manager.business;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.zajavka.project_manager.business.dao.UsersDAO;
 import pl.zajavka.project_manager.domian.User;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UsersService {
 
     private final UsersDAO usersDAO;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> findAllUsers() {
         List<User> allUsers = usersDAO.findAllUsers();
@@ -28,7 +30,8 @@ public class UsersService {
     }
 
     public User saveUser(User user) {
-        User newUser = usersDAO.saveUser(user);
+        String encodePassword = passwordEncoder.encode(user.getPassword());
+        User newUser = usersDAO.saveUser(user.withPassword(encodePassword));
         log.info("created new user with ID [{}]", newUser.getUserId());
         return newUser;
     }

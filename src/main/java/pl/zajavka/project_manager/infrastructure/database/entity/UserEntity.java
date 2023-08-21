@@ -18,28 +18,31 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer userId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String name;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String surname;
 
-    @Column(name = "password")
+    @Column(name = "is_super", nullable = false)
+    private Boolean superUser;
+
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private Integer age;
 
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phone;
 
     @ManyToMany(mappedBy = "users")

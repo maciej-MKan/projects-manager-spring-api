@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = CommentController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class CommentControllerWebMsvcTest {
+public class CommentControllerWebMsvcTest extends AbstractJwt{
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;

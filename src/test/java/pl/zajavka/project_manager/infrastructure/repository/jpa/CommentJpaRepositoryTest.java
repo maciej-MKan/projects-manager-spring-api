@@ -1,6 +1,7 @@
 package pl.zajavka.project_manager.infrastructure.repository.jpa;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import pl.zajavka.project_manager.infrastructure.database.entity.CommentEntity;
 import pl.zajavka.project_manager.infrastructure.database.entity.ProjectEntity;
@@ -30,6 +32,7 @@ import static pl.zajavka.project_manager.util.Fixtures.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CommentJpaRepositoryTest {
 
     private CommentJpaRepository commentJpaRepository;
@@ -38,16 +41,16 @@ public class CommentJpaRepositoryTest {
 
     @BeforeEach
     void initData() {
-        List<ProjectEntity> projects = List.of(someProject1(), someProject2(), someProject3());
-        projectJpaRepository.saveAllAndFlush(projects);
         List<UserEntity> users = List.of(someUser1(), someUser2(), someUser3());
         userJpaRepository.saveAllAndFlush(users);
+        List<ProjectEntity> projects = List.of(someProject1(), someProject2(), someProject3());
+        projectJpaRepository.saveAllAndFlush(projects);
     }
 
     @AfterEach
     void cleanData() {
-        projectJpaRepository.deleteAll();
         userJpaRepository.deleteAll();
+        projectJpaRepository.deleteAll();
     }
 
     @Test
@@ -62,29 +65,37 @@ public class CommentJpaRepositoryTest {
 
     @Test
     void updateComment() {
+
+        //given
         CommentEntity comment = someComment1();
+        comment.setCommentId(1);
         commentJpaRepository.saveAndFlush(comment);
+        CommentEntity updatedComment = someComment1();
+        updatedComment.setCommentId(1);
+        updatedComment.setComment("Updated Comment");
 
+        //when
         Optional<CommentEntity> foundComment = commentJpaRepository.findById(comment.getCommentId());
+        commentJpaRepository.saveAndFlush(updatedComment);
+        Optional<CommentEntity> result = commentJpaRepository.findById(comment.getCommentId());
+
+        //then
         assertTrue(foundComment.isPresent());
-
-        foundComment.ifPresent(c -> {
-            c.setComment("Updated Comment");
-            commentJpaRepository.saveAndFlush(c);
-        });
-
-        Optional<CommentEntity> updatedComment = commentJpaRepository.findById(comment.getCommentId());
-        assertTrue(updatedComment.isPresent());
-        assertThat(updatedComment.get().getComment()).isEqualTo("Updated Comment");
+        assertTrue(result.isPresent());
+        assertThat(result.get().getComment()).isEqualTo("Updated Comment");
     }
 
     @Test
     void deleteComment() {
+
+        //given
         CommentEntity comment = someComment1();
         commentJpaRepository.saveAndFlush(comment);
 
+        //when
         commentJpaRepository.deleteById(comment.getCommentId());
 
+        //then
         Optional<CommentEntity> deletedComment = commentJpaRepository.findById(comment.getCommentId());
         assertFalse(deletedComment.isPresent());
     }

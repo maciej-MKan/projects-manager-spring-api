@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import pl.zajavka.project_manager.infrastructure.database.entity.UserEntity;
 import pl.zajavka.project_manager.infrastructure.database.repository.jpa.UserJpaRepository;
@@ -24,6 +25,7 @@ import static pl.zajavka.project_manager.util.Fixtures.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(PersistenceContainerTestConfiguration.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UserJpaRepositoryTest {
 
     private final UserJpaRepository userJpaRepository;

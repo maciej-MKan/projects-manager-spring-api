@@ -7,12 +7,14 @@ import java.util.List;
 @With
 @Value
 @Builder
-@EqualsAndHashCode(of = "userId")
+@EqualsAndHashCode(of = "email")
 @ToString(of = {"name", "surname"})
 public class User {
     Integer userId;
     String name;
     String surname;
+    String password;
+    Boolean superUser;
     Integer age;
     String gender;
     String email;

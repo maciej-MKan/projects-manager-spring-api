@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = ProjectController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ProjectControllerWebMsvcTest {
+public class ProjectControllerWebMsvcTest extends AbstractJwt {
 
     private MockMvc mockMvc;
     

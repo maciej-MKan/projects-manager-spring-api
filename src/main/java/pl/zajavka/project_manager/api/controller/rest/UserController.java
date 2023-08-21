@@ -1,7 +1,10 @@
 package pl.zajavka.project_manager.api.controller.rest;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.zajavka.project_manager.api.dto.UserDTO;
 import pl.zajavka.project_manager.api.dto.UserDetailsDTO;
@@ -10,9 +13,11 @@ import pl.zajavka.project_manager.api.dto.mapper.UserDetailsDTOMapper;
 import pl.zajavka.project_manager.business.UsersService;
 import pl.zajavka.project_manager.domian.User;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(UserController.API_USERS)
+@Validated
 public class UserController {
     public static final String API_USERS = "/users";
     public static final String USER = "/user/{userId}";
@@ -36,8 +41,9 @@ public class UserController {
     }
 
     @PostMapping(value = ADD_USER)
-    public UserDTO addUser(@RequestBody UserDTO userDTO) {
-        User user = userDTOMapper.map(userDTO);
+    public UserDTO addUser(@RequestBody @Valid UserDetailsDTO userDTO) {
+        log.info("Handled request [{}]", userDTO);
+        User user = userDetailsDTOMapper.map(userDTO);
         return userDTOMapper.map(userService.saveUser(user));
     }
 
