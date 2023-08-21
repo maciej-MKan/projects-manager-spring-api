@@ -1,0 +1,11 @@
+# base img for java 17
+FROM openjdk:17-jre-slim
+
+# work dir
+WORKDIR /app
+
+# coppy files
+COPY ./backend/build/libs/*.jar app.jar
+
+# run Spring Boot
+CMD ["java", "-jar", "app.jar"]
