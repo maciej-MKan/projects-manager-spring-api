@@ -24,7 +24,7 @@ This is one of the backend versions for the Project Management Platform. This ba
 To get started with the Spring backend, follow these steps:
 
 1. Clone the repository:
-   ```git clone https://github.com/maciej-MKan/projects-manager.git```
+   ```git clone --recursive https://github.com/maciej-MKan/projects-manager.git```
 
 2. Navigate to the spring backend directory:
    ```cd backend/projects-manager-spring-api```
