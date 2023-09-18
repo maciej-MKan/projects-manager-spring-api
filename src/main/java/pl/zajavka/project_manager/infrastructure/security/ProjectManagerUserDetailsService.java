@@ -24,8 +24,10 @@ public class ProjectManagerUserDetailsService implements UserDetailsService {
     private final UserJpaRepository usersRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        log.info("searching user for email [{}]", email);
         Optional<UserEntity> user = usersRepository.findAllByEmail(email);
         if (user.isEmpty()) {
+            log.error("User with email [{}] not found", email);
             throw new UsernameNotFoundException("Not found!");
         }
         List<GrantedAuthority> authorities = new LinkedList<>();

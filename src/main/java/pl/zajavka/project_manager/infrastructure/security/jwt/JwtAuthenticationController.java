@@ -1,5 +1,7 @@
 package pl.zajavka.project_manager.infrastructure.security.jwt;
 
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,8 +10,10 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import pl.zajavka.project_manager.domian.exception.InvalidCredentialsError;
 import pl.zajavka.project_manager.infrastructure.security.ProjectManagerUserDetailsService;
 
+@Slf4j
 @RestController
 @CrossOrigin
 public class JwtAuthenticationController {
@@ -24,7 +28,7 @@ public class JwtAuthenticationController {
 	private ProjectManagerUserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken( @RequestBody @Valid JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
@@ -40,9 +44,11 @@ public class JwtAuthenticationController {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 		} catch (DisabledException e) {
+			log.warn("USER_DISABLED");
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
+			log.warn("INVALID_CREDENTIALS");
+			throw new InvalidCredentialsError("INVALID_CREDENTIALS", e);
 		}
 	}
 }

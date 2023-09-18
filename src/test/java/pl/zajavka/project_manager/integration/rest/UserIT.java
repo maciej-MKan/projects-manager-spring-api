@@ -19,6 +19,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static pl.zajavka.project_manager.util.Fixtures.someUser1;
 
 
 @Disabled
@@ -45,6 +46,8 @@ public class UserIT extends AbstractIT {
 
     @Test
     public void givenExistingUserId_whenGetUser_thenRetrieveUserDetails() {
+        userJpaRepository.save(someUser1());
+
         given()
                 .when()
                 .get("/api/users/{userId}", 1)

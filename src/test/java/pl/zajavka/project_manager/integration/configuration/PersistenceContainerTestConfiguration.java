@@ -20,13 +20,14 @@ public class PersistenceContainerTestConfiguration {
     @Bean
     @Qualifier(POSTGRESQL)
     PostgreSQLContainer<?> postgresqlContainer() {
-        PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>(POSTGRESQL_CONTAINER)
-            .withUsername(USERNAME)
-            .withPassword(PASSWORD);
-        postgresqlContainer.start();
-//        System.setProperty("spring.datasource.username", postgresqlContainer.getUsername());
-//        System.setProperty("spring.datasource.password", postgresqlContainer.getPassword());
-        return postgresqlContainer;
+        try(PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>(POSTGRESQL_CONTAINER)
+            ) {
+            postgresqlContainer
+                    .withUsername(USERNAME)
+                    .withPassword(PASSWORD)
+                    .start();
+            return postgresqlContainer;
+        }
     }
 
     @Bean
