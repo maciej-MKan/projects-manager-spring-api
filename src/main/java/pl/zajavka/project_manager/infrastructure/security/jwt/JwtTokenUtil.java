@@ -25,7 +25,7 @@ public class JwtTokenUtil implements Serializable {
 
 //	@Value("${jwt.secret}")
 //	private String secret = "secret";
-	SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 	//retrieve username from jwt token
 	public String getUsernameFromToken(String token) {

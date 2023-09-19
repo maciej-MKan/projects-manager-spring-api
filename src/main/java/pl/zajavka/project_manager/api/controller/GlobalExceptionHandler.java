@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ValidationErrorResponse> handleValidationException(Exception ex) {
         String message = ex.getLocalizedMessage();
         List<String> errors = new ArrayList<>();
-        log.error("Validation error when new user add [{}]",message);
+        log.error("Validation error [{}]",message);
 
         ValidationErrorResponse response = ValidationErrorResponse.of(
                 HttpStatus.BAD_REQUEST.value(),
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidCredentialsError.class)
+    @ExceptionHandler({InvalidCredentialsError.class, UsernameNotFoundException.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ErrorMessage> handleInvalidCredentials(Exception ex){
         HttpStatus status = HttpStatus.UNAUTHORIZED;

@@ -16,6 +16,7 @@ import pl.zajavka.project_manager.infrastructure.security.ProjectManagerUserDeta
 @Slf4j
 @RestController
 @CrossOrigin
+@RequestMapping("/login")
 public class JwtAuthenticationController {
 
 	@Autowired
@@ -27,7 +28,11 @@ public class JwtAuthenticationController {
 	@Autowired
 	private ProjectManagerUserDetailsService userDetailsService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@GetMapping
+	public ResponseEntity<?> test(){
+		return ResponseEntity.ok("ok");
+	}
+	@PostMapping
 	public ResponseEntity<?> createAuthenticationToken( @RequestBody @Valid JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
@@ -43,9 +48,6 @@ public class JwtAuthenticationController {
 	private void authenticate(String username, String password) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			log.warn("USER_DISABLED");
-			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
 			log.warn("INVALID_CREDENTIALS");
 			throw new InvalidCredentialsError("INVALID_CREDENTIALS", e);

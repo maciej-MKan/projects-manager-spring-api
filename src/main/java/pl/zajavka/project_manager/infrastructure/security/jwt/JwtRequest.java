@@ -2,19 +2,15 @@ package pl.zajavka.project_manager.infrastructure.security.jwt;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class JwtRequest implements Serializable {
 
 	@Serial
@@ -24,6 +20,8 @@ public class JwtRequest implements Serializable {
 	@NotEmpty
 	private String email;
 
+	@Valid
+	@NotEmpty
 	private String password;
 
 }
