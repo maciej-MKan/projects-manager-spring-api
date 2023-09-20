@@ -15,7 +15,7 @@ import pl.zajavka.project_manager.infrastructure.security.ProjectManagerUserDeta
 
 @Slf4j
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/login")
 public class JwtAuthenticationController {
 
