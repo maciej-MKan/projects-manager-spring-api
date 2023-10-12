@@ -69,7 +69,7 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
-                                .requestMatchers("/login", "/login/", "/users/add", "/swagger-ui/**")
+                                .requestMatchers("/login", "/login/", "/users", "/users/", "/swagger-ui/**")
                                 .permitAll()
                                 .requestMatchers("/projects/all", "users/all", "users/delete")
                                 .hasAuthority("SuperUser")

@@ -30,8 +30,12 @@ public class UsersService {
     }
 
     public User saveUser(User user) {
-        String encodePassword = passwordEncoder.encode(user.getPassword());
-        User newUser = usersDAO.saveUser(user.withPassword(encodePassword));
+        User targetUser = user;
+        if (user.getSuperUser() == null){
+            targetUser = user.withSuperUser(false);
+        }
+        String encodePassword = passwordEncoder.encode(targetUser.getPassword());
+        User newUser = usersDAO.saveUser(targetUser.withPassword(encodePassword));
         log.info("created new user with ID [{}]", newUser.getUserId());
         return newUser;
     }

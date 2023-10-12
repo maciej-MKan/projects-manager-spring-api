@@ -18,5 +18,4 @@ public class UserDTO {
     private String name;
     @JsonProperty("last_name")
     private String surname;
-    private List<ProjectDTO> projects;
 }

@@ -31,16 +31,16 @@ public class UserController {
     private final UserDetailsDTOMapper userDetailsDTOMapper;
 
     @GetMapping(value = {USER, USER + "/"})
-    public UserDTO getUser(@PathVariable Integer userId) {
-        return userDTOMapper.map(userService.findUserById(userId));
-    }
-
-    @GetMapping(value = {USER_DETAILS, USER_DETAILS + "/"})
-    public UserDetailsDTO userDetails(@PathVariable Integer userId) {
+    public UserDetailsDTO getUser(@PathVariable Integer userId) {
         return userDetailsDTOMapper.map(userService.findUserById(userId));
     }
 
-    @PostMapping(value = {ADD_USER, ADD_USER + "/"})
+//    @GetMapping(value = {USER_DETAILS, USER_DETAILS + "/"})
+//    public UserDetailsDTO userDetails(@PathVariable Integer userId) {
+//        return userDetailsDTOMapper.map(userService.findUserById(userId));
+//    }
+
+    @PostMapping(value = {"", "/"})
     public UserDTO addUser(@RequestBody @Valid UserDetailsDTO userDTO) {
         log.info("Handled request [{}]", userDTO);
         User user = userDetailsDTOMapper.map(userDTO);

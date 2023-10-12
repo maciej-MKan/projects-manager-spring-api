@@ -65,26 +65,26 @@ public class UserControllerTest extends AbstractJwt{
                 .build();
     }
 
-    @Test
-    void getUser() throws Exception {
-        //given
-        UserDTO userDTO = someUserDTO();
-        User user = User.builder().build();
-
-        when(userService.findUserById(any(Integer.class))).thenReturn(user);
-        when(userDTOMapper.map(any(User.class))).thenReturn(userDTO);
-
-        //when, then
-        MvcResult result = mockMvc.perform(get(UserController.API_USERS + UserController.USER, 123)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId").value(userDTO.getUserId()))
-                .andReturn();
-
-        assertThat(result.getResponse().getContentAsString())
-                .contains("userId")
-                .contains(String.valueOf(userDTO.getUserId()));
-    }
+//    @Test
+//    void getUser() throws Exception {
+//        //given
+//        UserDTO userDTO = someUserDTO();
+//        User user = User.builder().build();
+//
+//        when(userService.findUserById(any(Integer.class))).thenReturn(user);
+//        when(userDTOMapper.map(any(User.class))).thenReturn(userDTO);
+//
+//        //when, then
+//        MvcResult result = mockMvc.perform(get(UserController.API_USERS + UserController.USER, 123)
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.userId").value(userDTO.getUserId()))
+//                .andReturn();
+//
+//        assertThat(result.getResponse().getContentAsString())
+//                .contains("userId")
+//                .contains(String.valueOf(userDTO.getUserId()));
+//    }
 
     @Test
     void userDetails() throws Exception {
@@ -101,11 +101,11 @@ public class UserControllerTest extends AbstractJwt{
         when(userDetailsDTOMapper.map(any(User.class))).thenReturn(userDetailsDTO);
 
         //when, then
-        MvcResult result = mockMvc.perform(get(UserController.API_USERS + UserController.USER_DETAILS, 123)
+        MvcResult result = mockMvc.perform(get(UserController.API_USERS + UserController.USER, 123)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(userDetailsDTO.getName()))
-                .andExpect(jsonPath("$.surname").value(userDetailsDTO.getSurname()))
+                .andExpect(jsonPath("$.first_name").value(userDetailsDTO.getName()))
+                .andExpect(jsonPath("$.last_name").value(userDetailsDTO.getSurname()))
                 .andExpect(jsonPath("$.age").value(userDetailsDTO.getAge()))
                 .andReturn();
 
@@ -125,7 +125,7 @@ public class UserControllerTest extends AbstractJwt{
         when(userDTOMapper.map(any(User.class))).thenReturn(someUserDTO());
 
         //when, then
-        MvcResult result = mockMvc.perform(post(UserController.API_USERS + UserController.ADD_USER)
+        MvcResult result = mockMvc.perform(post(UserController.API_USERS)
                         .content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -135,7 +135,7 @@ public class UserControllerTest extends AbstractJwt{
         String contentAsString = result.getResponse().getContentAsString();
 
         assertThat(contentAsString)
-                .contains("userId")
+                .contains("user_id")
                 .contains(String.valueOf(userDTO.getUserId()));
     }
 
@@ -153,11 +153,11 @@ public class UserControllerTest extends AbstractJwt{
                         .content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId").value(userDTO.getUserId()))
+                .andExpect(jsonPath("$.user_id").value(userDTO.getUserId()))
                 .andReturn();
 
         assertThat(result.getResponse().getContentAsString())
-                .contains("userId")
+                .contains("user_id")
                 .contains(String.valueOf(userDTO.getUserId()));
     }
 
