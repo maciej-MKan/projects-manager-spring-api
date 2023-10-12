@@ -23,8 +23,6 @@ public class JwtTokenUtil implements Serializable {
 
 	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-//	@Value("${jwt.secret}")
-//	private String secret = "secret";
 	private static final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 	//retrieve username from jwt token
@@ -56,9 +54,9 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	//generate token for user
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(String userName) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		return doGenerateToken(claims, userName);
 	}
 
 	//while creating the token -
