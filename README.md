@@ -2,6 +2,7 @@
 
 This is one of the backend versions for the Project Management Platform. This backend is implemented using the Spring framework, including Spring Boot and Spring Data JPA, and provides RESTful APIs for managing projects, tasks, users, comments, and more.
 
+
 ## Technologies Used
 
 - Spring Boot
@@ -19,6 +20,7 @@ This is one of the backend versions for the Project Management Platform. This ba
 - TestContainers for integration testing
 - RestAssured for API testing
 
+
 ## Getting Started
 
 To get started with the Spring backend, follow these steps:
@@ -34,6 +36,7 @@ To get started with the Spring backend, follow these steps:
 4. Access the API and OpenAPI documentation:
 - The API is accessible at `http://localhost:8080/`
 - The OpenAPI documentation is available at `http://localhost:8080/swagger-ui/index.html`
+  
 
 ## ERD (Entity Relationship Diagram)
 
